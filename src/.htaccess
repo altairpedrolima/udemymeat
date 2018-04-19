@@ -1,0 +1,14 @@
+# Para utilizar estratégia de caminho do Angular:
+# Este arquivo deve ser copiado para pasta de deploy do apache. A mesma pasta
+# em que copiamos o conteúdo da pasta dist.
+
+# não esquecer de alterar AllowOverride none para AllowOverride All no arquivo de
+# configuração do apache apache2.conf
+
+RewriteEngine on
+      RewriteCond %{REQUEST_FILENAME} -s [OR]
+      RewriteCond %{REQUEST_FILENAME} -l [OR]
+      RewriteCond %{REQUEST_FILENAME} -d
+      RewriteRule ^.*$ - [NC,L]
+
+      RewriteRule ^(.*) index.html [NC,L]
