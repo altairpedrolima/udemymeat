@@ -201,3 +201,72 @@ O bootstrap carrega o arquivo main (main.ts) que carrega o módulo principal (ap
 ### NgModule
 
 O NgModule é um decorator. É uma função que serve para aplicarmos metadados em uma classe, em um atributo, em um método ou em um argumento de um método.
+
+### Componentes
+
+Componentes são pequenas partes independentes reusáveis. 
+
+Em Angular, componentes são:
+
+Classes que possuem um ciclo de vida.
+Possuem um template para determinar sua aparencia.
+Possuem um Selector (tag) para serem usadas em outras partes da aplicação.
+
+Componentes são, portanto, elementos personalizados.
+
+No Angular, os componentes são dispostos em estrutura de árvores. Na raiz há sempre um componente parent seguido de seus filhos.
+
+Como definir um componente:
+
+A classe de um componente é uma classe que segue a sintaxe do ecman 2015, mais a fictures do typescript. Sempre que declaramos a classe, a marcamos com a palavra export para que ela possa ser referenciada posteriormente em outros arquivos de configurações exigidos pelo framework. Portanto, quando marcamos com export, este arquivo passa a ser um módulo ecman script 2015.
+Existem outras coisas que precisamos ter para utilizar esta classe no Angular, como por exemplo, qual o nome da tag que queremos usar com esse componente? Para isso usamos o decorator @Component.
+No decorator precisamos informar 2 coisas: 
+O Selector que é a tag,
+E qual o Template que o componente vai ter. Existem duas formas de se declarar um template que pode ser um arquivo externo através do atributo templateUrl - A url pode ser relativa, absoluta ou uma url http. A segunda forma é declarar o template direto dentro de um arquivo mas usando o atributo template no lugar de templateUrl.
+Templates podem ter expressões que resolvem as propriedades do componente chamado de Template Interpolation. Elas podem acessar propriedades mais complexas de um componente usando o operador ponto.
+
+```typescript
+
+@Component({
+    selector: 'app-first'
+    template: `<h1>{{title}}</h1>
+               <p> Welcome, {{user.name}}!</p>`
+})
+export class MyFirstComponent {
+    title string = 'My Star Wars Component!'
+    user = {name: 'Luke Skywalker'}
+}
+
+```
+
+Uma vez criado o componente, é necessário informar a qual módulo Angular o componente pertence:
+
+```typescript
+
+@NgModule({
+    declarations: [MyFirstComponent]
+})
+export class AppModule {}
+
+```
+
+Se a declaração do componente for feita no módulo raiz, toda a aplicação terá acesso ao componente.
+
+Para criar um componente digitamos na console o comando @angular/cli:
+
+ng generate component header
+
+ou a forma reduzida:
+
+ng g c header --spec=false
+
+quando nao queremos gerar arquivos de testes, utilizamos o --spec=false.
+
+Digitando o segundo comanda na console, serão criados no ambiente de desenvolvimento uma nova pasta com o nome do componete, no caso header, e dentro desta pasta os arquivos:
+
+* header.component.ts - que contém a classe do componente.
+* header.componente.html - que vai ser o template do componente.
+* header.component.css - que vai ser o estilo css do componente.
+
+Alem da pasta e dos arquivos, o @angular/cli lista o componete em um módulo
+
