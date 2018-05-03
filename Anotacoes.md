@@ -270,3 +270,26 @@ Digitando o segundo comanda na console, serão criados no ambiente de desenvolvi
 
 Alem da pasta e dos arquivos, o @angular/cli lista o componete em um módulo
 
+
+### Validação de formulários:
+
+A diretiva *ngModel
+
+Estados:
+valid -> Se o campo atende as regras de validação para o campo
+invalid -> Se o campo não atende às regras de validação
+pristine -> Começo do campo, quando ainda não foi digitado nada neste campo.
+dirty ->  Quando algo é digitado no campo, ele passa para o estado dirty
+touched -> Quando o usuário apenas entra no campo
+untouched -> Quando o usuário sai do campo
+
+Padroes de verificação:
+
+required -> campo requerido
+pattern -> valiado por expressão regular Regex
+minlenght -> tamanho mínimo
+maxlenght -> tamanho máximo
+
+
+
+
