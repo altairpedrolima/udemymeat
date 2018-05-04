@@ -119,6 +119,8 @@ No componente é preciso criar uma propriedade que vai representar o formulário
 
 userForm: FormGroup;
 
+No AppModule precisamos importar ReactiveFormsModule
+
 
 O form é representado por formgroups que vão presentar um ou mais campos dentro dele. Para ajudar nesta tarefa o Angular disponibiliza um objeto chamado FormBuider que ajuda na criação dos campos e outros grupos. 
 
@@ -129,12 +131,45 @@ constructor(private formBuilder: FormBuilder) { }
 
 E criamos os grupos dentro do método ngOnInit criando cada elemento com formBuilder.control:
 
-ngOnInit() {
+  ngOnInit() {
     this.userForm = this.formBuilder.group({
-      name: this.formBuilder.control('', [Validators.required, Validators.maxLength(3)]),
-      email: this.formBuilder.control('', Validators.email)
+      userName: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
+      userEmail: this.formBuilder.control('', [Validators.required, Validators.email]),
+      userPassword: this.formBuilder.control('')
     });
-}
+
+  }
+
+### Template para ReactiveModel
+
+O templete não usa o ngModel. O form vai ser associado com o group do componente através da diretiva formGroup. Se estiver subgrupos, pode ser associado com a diretiva formGroupName e cada campo dentro do group com formControlName.
+
+O grupo também é associado com classes de css. 
+
+<form [formGroup]="userForm" novalidate>
+  <br> {{userForm.valid}} {{userForm.value|json}}
+
+  <br>
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" name="name" formControlName="userName">
+  </div>
+  <br>
+  <div>
+    <label for="email">Email:</label>
+    <input type="text" name="email" formControlName="userEmail">
+  </div>
+  <br>
+  <div>
+    <label for="pass">Password:</label>
+    <input type="text" name="pass" formControlName="userPassword">
+  </div>
+  <br>
+</form>
+
+
+
+### Outro exemplo
 
 
 constructor(private orderService: OrderService,
@@ -142,6 +177,8 @@ constructor(private orderService: OrderService,
 private formBuilder: FormBuilder) { }
 
 O FormBuilder tem um método chamado group() onde recebe um objeto com propriedades representando cada campo do formulário
+
+
 
 No exemplo abaixo, os campos podem ser inicializados com valores vazio:
 
@@ -215,13 +252,5 @@ ngOnInit() {
 }
 
 
-
-### Template para ReactiveModel
-
-O templete não usa o ngModel. O form vai ser associado com o group do componente através da diretiva formGroup. Se estiver subgrupos, pode ser associado com a diretiva formGroupName e cada campo dentro do group com formControlName.
-
-O grupo também é associado com classes de css. 
-
-<form [formGroup]="orderForm" novalidate>
 
 
